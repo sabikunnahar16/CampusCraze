@@ -31,7 +31,7 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/prisma ./prisma
 
 # Expose port
-EXPOSE 5000
+EXPOSE 3001
 
 # Start the application
 CMD ["npm", "run", "start:prod"]

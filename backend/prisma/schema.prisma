@@ -55,3 +55,68 @@ model Post {
   
   author User @relation(fields: [authorId], references: [id])
 }
+
+model Club {
+  id Int @id @default(autoincrement())
+  slug String @unique
+  name String
+  slogan String
+  category String
+  about String
+  mission String
+  vision String
+  achievements Json
+  memories Json
+  committee Json
+  upcomingEvents Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  admins AdminUser[]
+}
+
+model BusRoute {
+  id Int @id @default(autoincrement())
+  slug String @unique
+  name String
+  description String
+  keyStops Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WelfareZone {
+  id Int @id @default(autoincrement())
+  slug String @unique
+  name String
+  supportFocus String
+  contactLine String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String
+  passwordHash String
+  role String @default("club-admin")
+  clubSlug String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  club Club? @relation(fields: [clubSlug], references: [slug], onDelete: SetNull)
+  sessions AdminSession[]
+
+  @@unique([clubSlug])
+}
+
+model AdminSession {
+  id Int @id @default(autoincrement())
+  tokenHash String @unique
+  adminUserId Int
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  adminUser AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+}

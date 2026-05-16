@@ -122,9 +122,15 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply min-h-screen bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at top left, rgba(34, 211, 238, 0.18), transparent 34%),
+      radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 26%),
+      linear-gradient(180deg, rgba(2, 6, 23, 0.96), rgba(15, 23, 42, 0.98));
+    background-attachment: fixed;
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
 }
